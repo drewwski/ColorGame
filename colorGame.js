@@ -7,19 +7,33 @@ let colors = [
     "rgb(255, 0, 255)",
 ]
 let squares = document.querySelectorAll(".square");
-let pickedColor = colors[3];
+let pickedColor = pickColor();
 let colorDisplay = document.getElementById("colorDisplay");
+let messageDisplay = document.querySelector("#message");
 
 colorDisplay.textConent = pickedColor;
 
 for(let i = 0; i < squares.length; i++){
     squares[i].style.backgroundColor = colors[i];
-    squares[i].addEventListener("click",  function(){
+    squares[i].addEventListener("click", function(){
     let clickedColor = this.style.backgroundColor;
         if(clickedColor === pickedColor){
-            alert("Correct")
+            messageDisplay.textContent = "Correct";
+            changeColors(clickedColor);
         } else {
-            alert("WRONG");
+            this.style.background = "#232323";
+            messageDisplay.textContent = "Try Again";
         }
     });
+}
+
+changeColors = (colors) => {
+    for(let i = 0; i < squares.length; i++){
+    squares[i].style.background = colors;
+    }
+}
+
+pickColor = () => {
+    let random = Math.floor(Math.random() * colors.length)
+    return colors[random];
 }
